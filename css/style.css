@@ -1,21 +1,30 @@
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+}
 
-html>* {
-  margin: 0;
-  font-family: 'Josefin Slab', serif;
-  color: #dedede;
-  padding: 0;
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix {
+  *zoom: 1;
 }
 
 body {
   background: #111;
+  font-family: 'Josefin Slab', serif;
+  color: #dedede;
 }
 
 h1 {
-  font-size: 72px;
+  font-size: 36pt;
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 14pt;
+  margin-bottom: 50%;
 }
 
 #chart {
@@ -35,9 +44,33 @@ h2 {
 }
 
 #content {
-  width: 100%;
+  width: 400px;
   position: relative;
   z-index: 2;
   text-align: center;
-  margin-top: 15%;
+  margin: 15% auto 0;
+}
+
+.social {
+  width: 34px;
+  height: 34px;
+  display: block;
+  float: left;
+  opacity: 0.5;
+}
+
+#github {
+  background: url('../img/github.png') no-repeat;
+  margin-left: 40px;
+}
+
+#lin {
+  background: url('../img/lin.png') no-repeat;
+  margin: 0 105px;
+}
+
+#pin {
+  background: url('../img/pin.png') no-repeat;
+  float: right;
+  margin-right: 40px;
 }
