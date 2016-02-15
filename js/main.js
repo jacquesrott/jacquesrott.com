@@ -77,7 +77,6 @@
 
   function generateBubble(value, i) {
     if(i % 16 === 0) {
-      console.log('coucou');
       return {
         x: getRandomInt(widthOffset, width - widthOffset),
         y: getRandomInt(heightOffset, height - heightOffset),
