@@ -2,7 +2,7 @@
   var body = d3.select("body")[0][0];
   var width = body.clientWidth;
   var height = window.innerHeight;
-  var bubbleCount = 1024;
+  var bubbleCount = 256;
   var chargeValue = 500;
   var flipDelay = 10000;  // 10 seconds
   var widthOffset = width / 8;
@@ -28,7 +28,7 @@
 
   radialGradient.append("stop")
     .attr("offset", "0%")
-    .attr("stop-color", "#333");
+    .attr("stop-color", "#232323");
 
   radialGradient.append("stop")
     .attr("offset", "85%")
@@ -77,6 +77,7 @@
 
   function generateBubble(value, i) {
     if(i % 16 === 0) {
+      console.log('coucou');
       return {
         x: getRandomInt(widthOffset, width - widthOffset),
         y: getRandomInt(heightOffset, height - heightOffset),
@@ -87,19 +88,23 @@
       };
     }
 
-    var radius = getRandomInt(2, 16);
+    var radius = getRandomInt(width * 0.004, width * 0.01);
     return {
       x: getRandomInt(0, width),
       y: getRandomInt(0, height),
       rx: radius,
       ry: radius * (getRandomInt(8, 12) / 10),
       charge: 0,
-      chargeDistance: 0,
     };
   }
 
   function flipCharges() {
     force.charge(function(d) {
+      if(d.charge === 0) {
+        return d.charge;
+      }
+      d.x = getRandomInt(widthOffset, width - widthOffset);
+      d.y = getRandomInt(heightOffset, height - heightOffset);
       d.charge = -d.charge;
       return d.charge;
     });
@@ -110,11 +115,13 @@
   }
 
   function tick(e) {
-    var q = d3.geom.quadtree(nodes);
-    var n = nodes.length;
+    var quadtree = d3.geom.quadtree(nodes);
 
-    for(var i = 0 ; i < n ; i++) {
-      q.visit(collide(nodes[i]));
+    for(var i = 0 ; i < nodes.length ; i++) {
+      if(i % 16 === 0) {
+        continue;
+      }
+      quadtree.visit(collide(nodes[i]));
     }
 
     svg.selectAll("ellipse")
