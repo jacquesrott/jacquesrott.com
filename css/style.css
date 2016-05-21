@@ -63,6 +63,10 @@ h2 {
   opacity: 0.5;
 }
 
+.social:hover {
+  opacity: 0.8;
+}
+
 #github {
   background: url('../img/github.png') no-repeat;
   margin-left: 40px;
