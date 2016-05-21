@@ -24,7 +24,11 @@ h1 {
 
 h2 {
   font-size: 14pt;
-  margin-bottom: 50%;
+  margin-bottom: 20%;
+}
+
+#mountain {
+  opacity: 0.8;
 }
 
 #chart {
