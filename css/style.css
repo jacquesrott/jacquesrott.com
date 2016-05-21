@@ -48,18 +48,22 @@ h2 {
 }
 
 #content {
-  width: 400px;
+  width: 300px;
   position: relative;
   z-index: 2;
   text-align: center;
   margin: 15% auto 0;
 }
 
+.social-footer {
+  width: 100%;
+  text-align: center;
+}
+
 .social {
   width: 34px;
   height: 34px;
-  display: block;
-  float: left;
+  display: inline-block;
   opacity: 0.5;
 }
 
@@ -69,16 +73,14 @@ h2 {
 
 #github {
   background: url('../img/github.png') no-repeat;
-  margin-left: 40px;
+  float: left;
 }
 
 #lin {
   background: url('../img/lin.png') no-repeat;
-  margin: 0 105px;
 }
 
 #pin {
   background: url('../img/pin.png') no-repeat;
   float: right;
-  margin-right: 40px;
 }
