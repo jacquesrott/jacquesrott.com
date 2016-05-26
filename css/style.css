@@ -22,9 +22,37 @@ h1 {
   font-size: 36pt;
 }
 
+h1.secondary {
+  font-size: 28pt;
+}
+
 h2 {
   font-size: 14pt;
   margin-bottom: 20%;
+}
+
+p {
+  font-size: 14pt;
+  margin-bottom: 20%;
+  color: #ccc;
+}
+
+a {
+  color: #111;
+  background-color: #fff;
+  padding: 0.1em 0.4em;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  opacity: 0.5;
+  font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+  transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -webkit-transition: opacity 0.2s ease-in-out;
+}
+
+a:hover {
+  opacity: 0.8;
 }
 
 #mountain {
@@ -64,14 +92,6 @@ h2 {
   width: 34px;
   height: 34px;
   display: inline-block;
-  opacity: 0.5;
-  transition: opacity 0.15s ease-in-out;
-  -moz-transition: opacity 0.15s ease-in-out;
-  -webkit-transition: opacity 0.15s ease-in-out;
-}
-
-.social:hover {
-  opacity: 0.8;
 }
 
 #github {
