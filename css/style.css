@@ -81,6 +81,9 @@ a:hover {
   z-index: 2;
   text-align: center;
   margin: 15% auto 20px;
+  padding-top: 170px;
+  background-position: top center;
+  background-repeat: no-repeat;
 }
 
 .social-footer {
@@ -106,4 +109,43 @@ a:hover {
 #pin {
   background: url('../img/pin.png') no-repeat;
   float: right;
+}
+
+#content.montagne0 {
+  background-image: url('../img/montagne/0.png');
+}
+
+#content.montagne1 {
+  background-image: url('../img/montagne/1.png');
+}
+
+#content.montagne2 {
+  background-image: url('../img/montagne/0.png');
+}
+
+#content.montagne3 {
+  background-image: url('../img/montagne/3.png');
+  background-position: center 50px;
+}
+
+#content.montagne4 {
+  background-image: url('../img/montagne/4.png');
+}
+
+#content.montagne5 {
+  background-image: url('../img/montagne/5.png');
+  background-position: center 50px;
+}
+
+#content.montagne6 {
+  background-image: url('../img/montagne/6.png');
+  background-position: center 40px;
+}
+
+#content.montagne7 {
+  background-image: url('../img/montagne/0.png');
+}
+
+#content.montagne8 {
+  background-image: url('../img/montagne/8.png');
 }
