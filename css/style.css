@@ -30,8 +30,7 @@ h2 {
 
 p {
   font-size: 14pt;
-  margin-bottom: 20%;
-  color: #ccc;
+  margin-bottom: 15%;
 }
 
 a {
@@ -44,6 +43,11 @@ a {
   transition: opacity 0.2s ease-in-out;
   -moz-transition: opacity 0.2s ease-in-out;
   -webkit-transition: opacity 0.2s ease-in-out;
+  display: block;
+  float: left;
+  clear: left;
+  margin: 5px 0;
+  padding: 5px 10px;
 }
 
 a:hover {
@@ -58,14 +62,6 @@ a:hover {
   background-position: top center;
   background-repeat: no-repeat;
   position: absolute;
-}
-
-.social {
-  display: block;
-  float: left;
-  clear: left;
-  margin: 5px 0;
-  padding: 5px 10px;
 }
 
 @media only screen and (max-width: 500px) {
