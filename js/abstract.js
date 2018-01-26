@@ -71,13 +71,29 @@ function getItem(radius, theta) {
   var index = getItemIndex(shapes);
 
   var angle = (theta * (1 / (radius  - 1)) * 90 * Math.PI) / 180;
-  radius *= 4 * Math.random();
+  radius *= 2 * Math.random();
   return {
     index: index,
     angle: angle * Math.round(Math.random() * 4),
     x: scale * radius * Math.cos(angle),
     y: scale * radius * Math.sin(angle),
   };
+}
+
+function drawItem(item, rotation, context, maxRotation) {
+  for (var a = 1; a <= maxRotation; a++) {
+    context.save();
+    context.strokeStyle = '#efefef';
+    context.lineWidth = 1.5;
+    context.translate(canvas.width / 2, canvas.height / 2);
+    context.rotate(a * Math.PI / (maxRotation / 2) );
+    context.rotate(globalRotation * Math.PI / 180);
+    context.translate(item.x, item.y);
+    context.rotate(item.angle);
+    context.scale(Math.random(), Math.random());
+    context.stroke(shapes[item.index]);
+    context.restore()
+  }
 }
 
 var shapes = [
@@ -91,8 +107,8 @@ var shapes = [
   getAngle(0, 0),
 ]
 
-var framesPerSecond = 10;
-var roro = 0;
+var framesPerSecond = 20;
+var globalRotation = 0;
 var canvas = document.getElementById('grid');
 
 function draw() {
@@ -105,42 +121,27 @@ function draw() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     var border = Math.round(
-      Math.random() * (canvas.width / 2 / scale - 5) + 5
+      Math.random() * 50 + 10
     );
 
-    var items = []
+    var maxRotation = Math.random() * 6 + 2;
+
     for (var i = 0 ; i < border; i++) {
+      var item = null;
       if (i == 0) {
-        items.push(getItem(i, 0));
+        item = getItem(i, 0);
+        drawItem(item, globalRotation, ctx, maxRotation);
       }
       var maxRadius = i * Math.random() * 3;
       for (var j = 0 ; j < maxRadius; j++) {
-        items.push(getItem(maxRadius * Math.random() * j, j));
+        item = getItem(maxRadius * Math.random() * j, j);
+        drawItem(item, globalRotation, ctx, maxRotation);
       }
-    }
-    var maxRotation = Math.random() * 6 + 2;
-    for (var a = 1; a <= maxRotation; a++) {
-      for (var i in items) {
-        var item = items[i];
-        if (item == null) continue;
-
-        ctx.save();
-        ctx.strokeStyle = '#efefef';
-        ctx.lineWidth = 1.5;
-        ctx.translate(canvas.width / 2, canvas.height / 2);
-        ctx.rotate(a * Math.PI / (maxRotation / 2));
-        ctx.rotate(roro * Math.PI / 180);
-        roro++
-        ctx.translate(item.x, item.y);
-        ctx.rotate(item.angle);
-        ctx.scale(Math.random(), Math.random());
-        ctx.stroke(shapes[item.index]);
-        ctx.restore()
-      }
+      globalRotation += Math.random() * 40 + 1
     }
 
     window.requestAnimationFrame(draw);
-  }, 1000 / (Math.random() * 20 + 10));
+  }, 1000 / framesPerSecond);
 }
 
 draw();
