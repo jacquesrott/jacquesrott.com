@@ -64,6 +64,10 @@ a:hover {
   position: absolute;
 }
 
+#content.invert>h1, #content.invert>h2 {
+  color: #101010;
+}
+
 #wrapper {
   position: absolute;
   top: 0;
@@ -83,10 +87,6 @@ a:hover {
 }
 
 @media only screen and (max-width: 500px) {
-  h1, h2 {
-    background-color: #101010;
-  }
-
   #grid {
     height: 100%;
     width: auto;

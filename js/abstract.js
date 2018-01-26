@@ -70,30 +70,80 @@ function getItemIndex(array) {
 function getItem(radius, theta) {
   var index = getItemIndex(shapes);
 
-  var angle = (theta * (1 / (radius  - 1)) * 90 * Math.PI) / 180;
-  radius *= 2 * Math.random();
+  var angle = (theta * 90 * Math.PI) / 180;
+  radius *= Math.random();
   return {
     index: index,
     angle: angle * Math.round(Math.random() * 4),
     x: scale * radius * Math.cos(angle),
     y: scale * radius * Math.sin(angle),
+    radius: radius,
   };
 }
 
-function drawItem(item, rotation, context, maxRotation) {
-  for (var a = 1; a <= maxRotation; a++) {
+function drawItem(context, item, rotation, style) {
+  for (var a = 1; a <= rotation; a++) {
     context.save();
-    context.strokeStyle = '#efefef';
+    context.strokeStyle = style;
     context.lineWidth = 1.5;
     context.translate(canvas.width / 2, canvas.height / 2);
-    context.rotate(a * Math.PI / (maxRotation / 2) );
-    context.rotate(globalRotation * Math.PI / 180);
+    context.rotate(a * Math.PI / (rotation / 2) * item.radius);
     context.translate(item.x, item.y);
     context.rotate(item.angle);
     context.scale(Math.random(), Math.random());
     context.stroke(shapes[item.index]);
     context.restore()
   }
+}
+
+function drawShapes(maxRotation) {
+  if (!canvas.getContext) {
+    return;
+  }
+  var ctx = canvas.getContext('2d');
+  ctx.fillStyle = 'rgba(16, 16, 16, 0.3)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  var maxBorder = 40;
+  if (window.innerWidth <= 500) {
+    maxBorder = 10;
+  }
+  var border = Math.round(
+    Math.random() * maxBorder + 10
+  );
+
+  for (var i = 0 ; i < border; i++) {
+    var item = null;
+    if (i == 0) {
+      item = getItem(i, 0);
+      drawItem(ctx, item, maxRotation, '#efefef');
+    }
+    var maxRadius = Math.random() * i;
+    for (var j = 0 ; j < maxRadius; j++) {
+      item = getItem(maxRadius * Math.random() * i, j);
+      drawItem(ctx, item, maxRotation, '#efefef');
+    }
+  }
+
+  window.requestAnimationFrame(draw);
+}
+
+function drawBurst() {
+  if (!canvas.getContext) {
+    return;
+  }
+  var ctx = canvas.getContext('2d');
+  ctx.fillStyle = 'rgba(16, 16, 16, 0.1)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  for (var i = 0 ; i < 10; i++) {
+    for (var j = 0 ; j < i; j++) {
+      var item = getItem(i * j, j);
+      drawItem(ctx, item, 50, '#efefef');
+    }
+  }
+
+  window.requestAnimationFrame(draw);
 }
 
 var shapes = [
@@ -107,41 +157,24 @@ var shapes = [
   getAngle(0, 0),
 ]
 
-var framesPerSecond = 20;
-var globalRotation = 0;
+var framesPerSecond = 10;
+var burstStart = 5000;
+var burstEnd = 0;
 var canvas = document.getElementById('grid');
+var content = document.getElementById('content');
 
-function draw() {
-  setTimeout(function drawShapes() {
-    if (!canvas.getContext) {
-      return;
+function draw(deltaTime) {
+  if (deltaTime > burstStart || deltaTime < burstEnd) {
+    if (deltaTime > burstStart) {
+      burstEnd = deltaTime + 10000
+      burstStart = deltaTime + 20000;
     }
-    var ctx = canvas.getContext('2d');
-    ctx.fillStyle = 'rgba(16, 16, 16, 0.3)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    var border = Math.round(
-      Math.random() * 50 + 10
-    );
-
+    setTimeout(drawBurst, 1000 / framesPerSecond);
+  }
+  else {
     var maxRotation = Math.random() * 6 + 2;
-
-    for (var i = 0 ; i < border; i++) {
-      var item = null;
-      if (i == 0) {
-        item = getItem(i, 0);
-        drawItem(item, globalRotation, ctx, maxRotation);
-      }
-      var maxRadius = i * Math.random() * 3;
-      for (var j = 0 ; j < maxRadius; j++) {
-        item = getItem(maxRadius * Math.random() * j, j);
-        drawItem(item, globalRotation, ctx, maxRotation);
-      }
-      globalRotation += Math.random() * 40 + 1
-    }
-
-    window.requestAnimationFrame(draw);
-  }, 1000 / framesPerSecond);
+    setTimeout(drawShapes, 1000 / framesPerSecond, maxRotation);
+  }
 }
 
 draw();
