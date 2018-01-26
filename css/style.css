@@ -13,14 +13,15 @@
 }
 
 body {
-  background: #efefef;
+  background: #101010;
   font-family: 'Source Code Pro', Menlo, monospace;
-  color: #111;
+  color: #eee;
 }
 
 h1 {
   font-size: 36pt;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Alegreya', serif;
+  font-weight: normal
 }
 
 h2 {
@@ -34,15 +35,11 @@ p {
 }
 
 a {
-  color: #111;
+  color: #009dde;
   background-color: #fff;
   padding: 0.1em 0.4em;
   font-weight: bold;
   text-decoration: none;
-  opacity: 0.8;
-  transition: opacity 0.2s ease-in-out;
-  -moz-transition: opacity 0.2s ease-in-out;
-  -webkit-transition: opacity 0.2s ease-in-out;
   display: block;
   float: left;
   clear: left;
@@ -51,25 +48,51 @@ a {
 }
 
 a:hover {
-  background-color: #111;
+  background-color: #009dde;
   color: #fff;
 }
 
 #content {
   position: absolute;
   z-index: 2;
-  margin: 15% 20px 20px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 20px;
   background-position: top center;
   background-repeat: no-repeat;
   position: absolute;
 }
 
-@media only screen and (max-width: 500px) {
-  #content {
-    position: absolute;
-    z-index: 2;
-    margin: 45% 20px 20px;
-  }
+#wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
+#grid {
+  width: 100%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media only screen and (max-width: 500px) {
+  h1, h2 {
+    background-color: #101010;
+  }
+
+  #grid {
+    height: 100%;
+    width: auto;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
 
