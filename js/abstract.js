@@ -64,20 +64,20 @@ function getAngle(x, y) {
 }
 
 function getItemIndex(array) {
-  return Math.floor(Math.random() * (array.length));
+  return Math.floor(Math.random() * array.length);
 }
 
 function getItem(radius, theta) {
-  var index = getItemIndex(shapes);
-
   var angle = (theta * 90 * Math.PI) / 180;
-  radius *= Math.random();
+  if (Math.random() >= 0.5) {
+    radius *= Math.random();
+  }
   return {
-    index: index,
+    index: getItemIndex(shapes),
     angle: angle * Math.round(Math.random() * 4),
     x: scale * radius * Math.cos(angle),
     y: scale * radius * Math.sin(angle),
-    radius: radius,
+    radius: radius * Math.random(),
   };
 }
 
@@ -101,10 +101,11 @@ function drawShapes(maxRotation) {
     return;
   }
   var ctx = canvas.getContext('2d');
-  ctx.fillStyle = 'rgba(16, 16, 16, 0.3)';
+  ctx.fillStyle = 'rgba(16, 16, 16, 0.1)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   var maxBorder = 40;
+  // Reduce size on mobile for performence
   if (window.innerWidth <= 500) {
     maxBorder = 10;
   }
@@ -113,14 +114,9 @@ function drawShapes(maxRotation) {
   );
 
   for (var i = 0 ; i < border; i++) {
-    var item = null;
-    if (i == 0) {
-      item = getItem(i, 0);
-      drawItem(ctx, item, maxRotation, '#efefef');
-    }
     var maxRadius = Math.random() * i;
     for (var j = 0 ; j < maxRadius; j++) {
-      item = getItem(maxRadius * Math.random() * i, j);
+      var item = getItem(maxRadius * Math.random() * i, j);
       drawItem(ctx, item, maxRotation, '#efefef');
     }
   }
